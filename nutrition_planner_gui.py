@@ -195,10 +195,14 @@ class NutritionPlannerGUI:
                     self.detail_text.insert(tk.END, f"主料：\n{recipe[2]}\n\n")
                     self.detail_text.insert(tk.END, f"辅料：\n{recipe[3]}\n\n")
                     self.detail_text.insert(tk.END, f"营养成分：\n{recipe[4]}\n\n")
-                    self.detail_text.insert(tk.END, f"烹饪链接：\n")
-                    links = recipe[5].split("|")
-                    for link in links:
-                        self.detail_text.insert(tk.END, f"{link}\n", "link")
+                    cooking_links = recipe[5]
+                    if cooking_links:
+                        links = [link.strip() for link in cooking_links.split("|")]
+                        valid_links = [link for link in links if link]
+                        if valid_links:
+                            self.detail_text.insert(tk.END, f"烹饪链接：\n")
+                            for link in valid_links:
+                                self.detail_text.insert(tk.END, f"{link}\n", "link")
                 else:
                     self.detail_text.insert(tk.END, f"未找到 {dish_name} 的详细信息")
         except sqlite3.Error as e:
