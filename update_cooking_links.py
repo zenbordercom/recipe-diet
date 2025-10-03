@@ -1,6 +1,15 @@
 import json
 import time
 import os
+import sys
+import importlib.util
+
+if importlib.util.find_spec("googlesearch") is None:
+    print(
+        "The 'googlesearch' package is required. Install it with 'pip install googlesearch-python'."
+    )
+    sys.exit(1)
+
 from googlesearch import search
 
 def update_cooking_links():
